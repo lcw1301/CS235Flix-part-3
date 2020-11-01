@@ -51,8 +51,8 @@ class SQLAlchemyRepository(AbstractRepository):
     def reset_session(self):
         self.__session_cm.reset_session()
 
-    def get_movie(self, id):
-        movie = self.__session_cm.session.query(Movie).filter(Movie.__id == id).first()
+    def get_movie_by_rank(self, rank_list):
+        movie = self.__session_cm.session.query(Movie).filter(Movie._rank.in_(rank_list)).all()
         return movie
 
 
@@ -75,6 +75,9 @@ def populate(engine: Engine, data_path: str):
 
     insert_movies = """
             INSERT INTO movies (
-             rank, title, genre, description, director, actors, year, runtime, rating, votes, revenue, metascore)
+             rank, title, genre, description, director, actors, release_year, runtime_minutes, rating, votes, revenue, metascore)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
     cursor.executemany(insert_movies, movie_record_generator(os.path.join(data_path, 'Data1000Movies.csv')))
+
+    conn.commit()
+    conn.close()
