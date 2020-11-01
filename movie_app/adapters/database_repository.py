@@ -80,3 +80,4 @@ def load_genres(session, data_path: str):
 
 def load_actors(session, data_path: str):
     actors = dict()
+    
