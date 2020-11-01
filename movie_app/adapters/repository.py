@@ -22,7 +22,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_director(self, director_name) -> Director:
+    def get_director(self, director) -> Director:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -38,7 +38,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_actor(self, actor_name) -> Actor:
+    def get_actors(self) -> List[Actor]:
         raise NotImplementedError
 
     @abc.abstractmethod
